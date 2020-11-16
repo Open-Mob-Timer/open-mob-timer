@@ -113,7 +113,7 @@ module.exports.toggleTurnEndsAt = async (req: Request, res: Response) => {
     } catch (error) {
         return res.status(500).send(error.message);
     }
-}
+};
 
 module.exports.deleteUser = async (req: Request, res: Response) => {
     try {
