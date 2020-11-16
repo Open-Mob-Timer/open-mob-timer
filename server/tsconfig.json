@@ -1,0 +1,20 @@
+{
+   "compilerOptions": {
+      "lib": [
+         "esnext.asynciterable",
+         "es5",
+         "es6"
+      ],
+      "target": "es5",
+      "module": "commonjs",
+      "moduleResolution": "node",
+      "allowJs": true,
+      "baseUrl": ".",
+      "outDir": "./dist",
+      "emitDecoratorMetadata": true,
+      "experimentalDecorators": true,
+      "sourceMap": false
+   },
+   "include": ["**/*"],
+   "exclude": ["migration/**"]
+}

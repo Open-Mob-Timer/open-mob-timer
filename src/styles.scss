@@ -1,0 +1,16 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import './assets/scss/variables';
+@import 'node_modules/bootstrap/scss/bootstrap'; 
+
+body {
+    background-color: #00adff;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+

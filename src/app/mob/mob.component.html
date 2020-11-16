@@ -1,0 +1,50 @@
+<div class="mob-name mb-4">
+    <h1 class="text-center pt-3">{{mob?.name | uppercase}}</h1>
+</div>
+<p class="text-center"><button id="mobLink"
+            class="btn btn-secondary"
+            (click)="copyLink()">{{mobLink}}&nbsp;<i class="fa fa-copy"></i></button></p>
+
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card text-white bg-primary mb-3 pr-4 pl-4"
+             style="max-width: 20rem;">
+            <!-- <div class="card-header text-center">{{mob?.name}}</div> -->
+            <div class="card-body text-center">
+                <p class="card-text time-remaining">{{timeRemaining}}</p>
+            </div>
+        </div>
+    </div>
+
+    <form class="form-inline my-2 my-lg-0"
+          [formGroup]="userForm"
+          (ngSubmit)="addUser()">
+        <div class="input-group mb-3 d-flex justify-content-between align-items-center">
+            <input class="form-control mr-sm-2"
+                   style="margin-top: 2px;"
+                   type="text"
+                   formControlName="name"
+                   placeholder="User Name">
+            <button class="btn btn-primary my-2 my-sm-0"
+                    type="submit"
+                    [disabled]="userForm.invalid">ADD</button>
+        </div>
+    </form>
+
+    <div *ngIf="mob?.users?.length">
+        <ul class="list-group"
+            *ngFor="let user of mob?.users; let i = index">
+            <li class="list-group-item d-flex justify-content-between align-items-center">
+                <span>
+                    <button *ngIf="!user.turnEndsAt" class="btn btn-primary btn-sm mr-2 timer-button" (click)="toggleTurn(i)" [disabled]="user.isAway">START</button>
+                    <button *ngIf="user.turnEndsAt" class="btn btn-danger btn-sm mr-2 timer-button" (click)="toggleTurn(i)">STOP</button>
+                    {{user.name}}
+                </span>
+                <span>
+                    <button type="button" class="btn btn-lg btn-user-action" (click)="toggleIsAway(i)"><i class="fa fa-rocket"></i></button>
+                    <button type="button" class="btn btn-lg btn-user-action" (click)="removeUser(i)"><i class="fa fa-times"></i></button>
+                </span>
+            </li>
+        </ul>
+    </div>
+</div>

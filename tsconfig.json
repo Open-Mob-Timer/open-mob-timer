@@ -1,0 +1,28 @@
+/* To learn more about this file see: https://angular.io/config/tsconfig. */
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./",
+    "paths": {
+      "@dtm/core/*": ["src/app/core/*"],
+      "@dtm/shared/*": ["src/app/shared/*"],
+      "@dtm/mob/*": ["src/app/mob/*"],
+      "@dtm/home/*": ["src/app/home/*"],
+      "@dtm/models": ["src/app/shared/models"],
+      "@dtm/environment": ["src/environments/environment"]
+    },
+    "outDir": "./dist/out-tsc",
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "node",
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "es2020",
+    "lib": [
+      "es2018",
+      "dom"
+    ]
+  }
+}

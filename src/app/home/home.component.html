@@ -1,0 +1,17 @@
+<form class="form-inline my-2 my-lg-0 center"
+      [formGroup]="mobForm"
+      (ngSubmit)="createNewMob()">
+    <div class="input-group mb-3"
+         style="width:25%;">
+        <input class="form-control mr-sm-2"
+               style="margin-top: 2px;"
+               type="text"
+               minlength="3"
+               formControlName="name"
+               placeholder="Mob Name">
+        <button class="btn btn-primary my-2 my-sm-0"
+                type="button"
+                (click)="createNewMob()"
+                [disabled]="mobForm.invalid">CREATE</button>
+    </div>
+</form>
