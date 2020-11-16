@@ -1,4 +1,4 @@
-# MobTimerClient
+# Open Mob Timer
 A Mob Timer for mobs with remote employees.
 
 ## Development server
