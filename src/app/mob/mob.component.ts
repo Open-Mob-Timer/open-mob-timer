@@ -44,7 +44,7 @@ export class MobComponent implements OnInit, OnDestroy {
     });
 
     this.userForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(3)])
+      name: new FormControl('', [Validators.required, Validators.minLength(2)])
     }, { updateOn: 'change' });
   }
 
