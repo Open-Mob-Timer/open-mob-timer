@@ -110,7 +110,7 @@ export class MobComponent implements OnInit, OnDestroy {
       setTimeout(() => this.setTimeRemaining(), 1000);
     } else {
       this.desktopNotificationService.notify(`Your turn is over, ${user.name}! Click START for the next mobster.`);
-      this.toggleTurn(index);
+      this.toggleTurn(index, true);
     }
   }
 
@@ -134,7 +134,7 @@ export class MobComponent implements OnInit, OnDestroy {
     this.usersService.updateUser(user).subscribe();
   }
 
-  public toggleTurn(index: number): void {
-    this.usersService.toggleTurn(this.mob.users[index]).subscribe();
+  public toggleTurn(index: number, isOutOfTime: boolean = false): void {
+    this.usersService.toggleTurn(this.mob.users[index], isOutOfTime).subscribe();
   }
 }

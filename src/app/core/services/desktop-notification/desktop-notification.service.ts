@@ -9,7 +9,6 @@ export class DesktopNotificationService {
 
   public requestPermission(): Promise<void> {
     if (!('Notification' in window) || Notification.permission === 'denied') {
-      console.log('here');
       return;
     }
 
@@ -18,7 +17,6 @@ export class DesktopNotificationService {
 
   public notify(message: string): void {
     let notification;
-    console.log(Notification.permission);
     if (Notification.permission === 'denied') {
       return;
     }

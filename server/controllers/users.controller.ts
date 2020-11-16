@@ -88,11 +88,12 @@ module.exports.updateUser = async (req: Request, res: Response) => {
 
 module.exports.toggleTurnEndsAt = async (req: Request, res: Response) => {
     try {
+        // TODO - Pass turnEndsAt to prevent database call
         const user = await getRepository(User).findOne(req.params.id);
 
         const currentDate = new Date();
         const fifteenMinutes = new Date(currentDate.getTime() + 15 * 60000);
-        const turnEndsAt = user.turnEndsAt ? null : fifteenMinutes;
+        const turnEndsAt = user.turnEndsAt || req.query.isOutOfTime ? null : fifteenMinutes;
 
         getRepository(User).merge(user, { turnEndsAt });
 
