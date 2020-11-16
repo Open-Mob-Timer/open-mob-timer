@@ -1,13 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { MobService } from '@dtm/core/services';
+import { MobService, DesktopNotificationService, UsersSocketService, UsersService } from '@dtm/core/services';
 import { Mob } from '@dtm/models';
-import { UsersService } from './services/users.service';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '@dtm/shared/models/user.model';
-import { UsersSocketService } from './services/users-socket.service';
 import { Subscription } from 'rxjs';
-import { DesktopNotificationService } from '@dtm/core/services';
 
 @Component({
   selector: 'mob-timer-mob',
