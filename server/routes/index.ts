@@ -9,6 +9,7 @@ const usersCtrl = require('../controllers/users.controller');
 router.get('/users/:id', usersCtrl.getUserById);
 router.post('/users', usersCtrl.createUser);
 router.put('/users/:id', usersCtrl.updateUser);
+router.delete('/users/:id', usersCtrl.deleteUser);
 router.put('/users/:id/toggle', usersCtrl.toggleTurnEndsAt);
 
 module.exports = router;
