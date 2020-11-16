@@ -29,11 +29,9 @@ createConnection(connection).then(async connection => {
     };
     const io = require('socket.io')(server, options);
 
-    // app.use(express.static(path.resolve(__dirname, '../dist')));
     app.use(express.static(path.resolve()));
     app.use(bodyParser.json());
     app.use(express.json());
-
 
     app.get('/', (req, res) => {
         res.sendFile(__dirname);
@@ -42,8 +40,6 @@ createConnection(connection).then(async connection => {
     app.use('/api', routes);
 
     server.listen(port, () => console.log(`app listening at http://localhost:${port}`));
-
-    // io.origins(['*:*']);
 
     app.set('socketio', io);
 
