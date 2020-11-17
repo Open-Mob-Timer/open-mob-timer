@@ -1,43 +1,54 @@
-<div class="mob-name mb-4">
-    <h1 class="text-center pt-3">{{mob?.name | uppercase}}</h1>
-</div>
-<p class="text-center"><button id="mobLink"
-            class="btn btn-secondary"
-            (click)="copyLink()">{{mobLink}}&nbsp;<i class="fa fa-copy"></i></button></p>
-
-<div class="container">
-    <div class="d-flex justify-content-center">
-        <div class="card text-white bg-primary mb-3 pr-4 pl-4"
-             style="max-width: 20rem;">
-            <!-- <div class="card-header text-center">{{mob?.name}}</div> -->
-            <div class="card-body text-center">
-                <p class="card-text time-remaining">{{timeRemaining}}</p>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid ">
+        <div class="navbar-header">
+            <a class="navbar-brand"
+               href="#">{{mob?.name || 'Open Mob Timer' | uppercase}}</a>
+        </div>
+        <div class="navbar-inner text-center">
+            <button id="mobLink"
+                    class="btn btn-secondary"
+                    (click)="copyLink()">{{mobLink}}&nbsp;<i class="fa fa-copy"></i></button>
+        </div>
+        <div class="nav navbar-right">
+            <li class="nav-item">
+            <a class="btn btn-secondary nav-btn" href="https://github.com/Open-Mob-Timer/open-mob-timer" target="_blank"><i class="fa fa-github text-light"></i></a>
+        </li>
         </div>
     </div>
+</nav>
 
-    <form class="form-inline my-2 my-lg-0"
-          [formGroup]="userForm"
-          (ngSubmit)="addUser()">
-        <div class="input-group mb-3 d-flex justify-content-between align-items-center">
-            <input class="form-control mr-sm-2"
-                   style="margin-top: 2px;"
-                   type="text"
-                   formControlName="name"
-                   placeholder="User Name">
-            <button class="btn btn-primary my-2 my-sm-0"
-                    type="submit"
-                    [disabled]="userForm.invalid">ADD</button>
+<div class="container-fluid row">
+    <div class="card col-sm-2 side-bar">
+        <div class="card-body">
+            <h2 class="card-text time-remaining">{{timeRemaining}}</h2>
+            <form class="form-inline my-2 my-lg-0"
+                  style="display: inline-block"
+                  [formGroup]="userForm"
+                  (ngSubmit)="addUser()">
+                <div class="input-group mb-3">
+                    <input type="text"
+                           class="form-control"
+                           placeholder="Enter User Name"
+                           aria-label="Recipient's username"
+                           aria-describedby="basic-addon2"
+                           formControlName="name">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-primary"
+                                type="submit"
+                                [disabled]="userForm.invalid">Add</button>
+                    </div>
+                </div>
+            </form>
         </div>
-    </form>
-
-    <div *ngIf="mob?.users?.length">
-        <ul class="list-group"
-            *ngFor="let user of mob?.users; let i = index">
-            <li class="list-group-item d-flex justify-content-between align-items-center">
+    </div>
+    <div class="col-sm-9 text-center">
+        <div class="content" *ngIf="mob?.users?.length">
+            <ul class="list-group"
+                *ngFor="let user of mob?.users; let i = index">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
                 <span>
-                    <button *ngIf="!user.turnEndsAt" class="btn btn-primary btn-sm mr-2 timer-button" (click)="toggleTurn(i)" [disabled]="user.isAway">START</button>
-                    <button *ngIf="user.turnEndsAt" class="btn btn-danger btn-sm mr-2 timer-button" (click)="toggleTurn(i)">STOP</button>
+                    <button *ngIf="!user.turnEndsAt" class="btn btn-primary btn-sm mr-2 timer-button" (click)="toggleTurn(i)" [disabled]="user.isAway"><i class="fa fa-play"></i></button>
+                    <button *ngIf="user.turnEndsAt" class="btn btn-danger btn-sm mr-2 timer-button" (click)="toggleTurn(i)"><i class="fa fa-stop"></i></button>
                     {{user.name}}
                 </span>
                 <span>
@@ -45,6 +56,7 @@
                     <button type="button" class="btn btn-lg btn-user-action" (click)="removeUser(i)"><i class="fa fa-times"></i></button>
                 </span>
             </li>
-        </ul>
+            </ul>
+        </div>
     </div>
 </div>
