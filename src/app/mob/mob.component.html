@@ -1,9 +1,8 @@
 <mob-timer-navbar [mob]="mob"></mob-timer-navbar>
 <div class="container-fluid">
-    <mob-timer-instrument-panel [mob]="mob" [timeRemaining]="timeRemaining"></mob-timer-instrument-panel>
-    <div class="col-sm-12 text-center"
-         *ngIf="mob?.users?.length">
-        <mob-timer-users class="d-inline-flex flex-wrap"
-                         [users]="mob.users"></mob-timer-users>
-    </div>
+    <mob-timer-instrument-panel [mob]="mob"
+                                [timeRemaining]="timeRemaining"></mob-timer-instrument-panel>
+    <mob-timer-users [users]="mob.users"
+                     class="col-sm-12 text-center"
+                     *ngIf="mob?.users?.length"></mob-timer-users>
 </div>

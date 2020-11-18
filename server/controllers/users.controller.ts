@@ -38,12 +38,11 @@ module.exports.createUser = async (req: Request, res: Response) => {
         };
 
         const data = await getRepository(User).create(user);
-        const result = await getRepository(User).save(data);
         const { id, mobId, name, isAway, turnEndsAt } = await getRepository(User).save(user);
         const response: UserResponse = { id, mobId, name, isAway, turnEndsAt };
 
         const io = req.app.get('socketio');
-        io.sockets.in(result.mobId).emit('user-added', response);
+        io.sockets.in(mobId).emit('user-added', response);
 
         return res.send(response);
     } catch (error) {

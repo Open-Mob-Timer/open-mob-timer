@@ -26,6 +26,11 @@ export class UsersComponent {
   }
 
   public toggleTurn(index: number): void {
+    const activeUserIndex = this.users.findIndex(x => x.turnEndsAt);
+    if (activeUserIndex > -1 && activeUserIndex !== index) {
+      this.usersService.toggleTurn(this.users[activeUserIndex]).subscribe();
+    }
+
     this.usersService.toggleTurn(this.users[index]).subscribe();
   }
 }
