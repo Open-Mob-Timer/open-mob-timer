@@ -1,0 +1,24 @@
+<div class="users"
+     *ngFor="let user of users; let i = index">
+    <div class="btn-light btn-lg user-pill"
+         style="display:inline-block">
+        <button *ngIf="!user.turnEndsAt"
+                class="btn btn-success mb-1 mr-2"
+                style="border-radius: 50%"
+                (click)="toggleTurn(i)"
+                [disabled]="user.isAway"><i class="las la-play"></i></button>
+        <button *ngIf="user.turnEndsAt"
+                class="btn btn-danger mb-1 mr-2"
+                style="border-radius: 50%"
+                (click)="toggleTurn(i)"><i class="las la-stop"></i></button>
+        <span class="mr-1">{{user.name}}</span>
+        <button type="button"
+                class="btn btn-transparent mb-1"
+                title="{{ user.isAway ? 'Return' : 'Set Away'}}"
+                (click)="toggleIsAway(i)"><i class="las la-door-open"></i></button>
+        <button type="button"
+                class="btn btn-dark btn-sm btn-user-action user-action user-delete"
+                title="delete"
+                (click)="removeUser(i)"><i class="las la-times"></i></button>
+    </div>
+</div>

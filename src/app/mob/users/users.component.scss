@@ -1,0 +1,22 @@
+.user-pill {
+    position: relative;
+    display: inline-block;
+    border-radius: 40px;
+    background-color: white !important;
+    margin: 10px;
+}
+
+.user-action {
+    position: absolute;
+    border-radius: 50%;
+    font-size: 8px;
+    right: -5px;
+
+    &.user-delete {
+        top: -5px;
+    }
+
+    &.user-away {
+        bottom: -5px;
+    }
+}

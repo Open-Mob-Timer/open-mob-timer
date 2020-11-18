@@ -1,0 +1,23 @@
+<div class="card col-sm-12 timer-card">
+    <div class="card-body text-center">
+        <h2 class="card-text time-remaining">{{timeRemaining}}</h2>
+        <form class="form-inline my-2 my-lg-0"
+              style="display: inline-block"
+              [formGroup]="userForm"
+              (ngSubmit)="addUser()">
+            <div class="input-group mb-3">
+                <input type="text"
+                       class="form-control"
+                       placeholder="Enter User Name"
+                       aria-label="Recipient's username"
+                       aria-describedby="basic-addon2"
+                       formControlName="name">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-primary"
+                            type="submit"
+                            [disabled]="userForm.invalid">Add</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
