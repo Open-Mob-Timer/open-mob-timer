@@ -66,6 +66,16 @@ export class MobComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions$.push(
+      this.usersSocketService.on('user-timer-ended').subscribe((user: User) => {
+        const index = this.mob.users.findIndex(x => x.id === user.id);
+        this.mob.users[index] = user;
+        this.timeRemaining = '0:00';
+
+        this.desktopNotificationService.notify(`Your turn is over, ${user.name}! Click START for the next mobster.`);
+      })
+    );
+
+    this.subscriptions$.push(
       this.usersSocketService.on('user-deleted').subscribe((user: User) => {
         this.mob.users = this.mob.users.filter(x => x.id !== user.id);
       })
@@ -106,8 +116,7 @@ export class MobComponent implements OnInit, OnDestroy {
     if (diff > 0) {
       setTimeout(() => this.setTimeRemaining(), 1000);
     } else {
-      this.desktopNotificationService.notify(`Your turn is over, ${user.name}! Click START for the next mobster.`);
-      this.toggleTurn(index, true);
+      this.expireTurn(index);
     }
   }
 
@@ -131,7 +140,11 @@ export class MobComponent implements OnInit, OnDestroy {
     this.usersService.updateUser(user).subscribe();
   }
 
-  public toggleTurn(index: number, isOutOfTime: boolean = false): void {
-    this.usersService.toggleTurn(this.mob.users[index], isOutOfTime).subscribe();
+  public toggleTurn(index: number): void {
+    this.usersService.toggleTurn(this.mob.users[index]).subscribe();
+  }
+
+  public expireTurn(index: number): void {
+    this.usersService.expireTurn(this.mob.users[index]).subscribe();
   }
 }

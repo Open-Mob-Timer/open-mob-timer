@@ -11,5 +11,6 @@ router.post('/users', usersCtrl.createUser);
 router.put('/users/:id', usersCtrl.updateUser);
 router.delete('/users/:id', usersCtrl.deleteUser);
 router.put('/users/:id/toggle', usersCtrl.toggleTurnEndsAt);
+router.put('/users/:id/expireturn', usersCtrl.expireTurn);
 
 module.exports = router;
