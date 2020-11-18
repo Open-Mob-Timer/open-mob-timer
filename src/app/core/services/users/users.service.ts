@@ -20,14 +20,12 @@ export class UsersService {
     return this.httpClient.put<User>(`api/users/${user.id}`, user);
   }
 
-  public toggleTurn(user: User, isOutOfTime: boolean): Observable<User> {
-    let url = `api/users/${user.id}/toggle`;
+  public toggleTurn(user: User): Observable<User> {
+    return this.httpClient.put<User>(`api/users/${user.id}/toggle`, user);
+  }
 
-    if (isOutOfTime) {
-      url = `${url}?isOutOfTime=${isOutOfTime}`;
-    }
-
-    return this.httpClient.put<User>(url, user);
+  public expireTurn(user: User): Observable<User> {
+    return this.httpClient.put<User>(`api/users/${user.id}/expireturn`, user);
   }
 
   public deleteUser(user: User): Observable<any> {

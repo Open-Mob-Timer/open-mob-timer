@@ -5,7 +5,6 @@ import { Mob } from '../entity/mob';
 import { UserCreateRequest } from '../dto/user/user-create';
 import { UserResponse } from '../dto/user/user-response';
 
-
 module.exports.getUserById = async (req: Request, res: Response) => {
     try {
         const user = await getRepository(User).findOne(req.params.id);
@@ -39,18 +38,11 @@ module.exports.createUser = async (req: Request, res: Response) => {
         };
 
         const data = await getRepository(User).create(user);
-        const result = await getRepository(User).save(data);
-
-        const response: UserResponse = {
-            id: result.id,
-            mobId: result.mobId,
-            name: result.name,
-            isAway: result.isAway,
-            turnEndsAt: result.turnEndsAt
-        };
+        const { id, mobId, name, isAway, turnEndsAt } = await getRepository(User).save(user);
+        const response: UserResponse = { id, mobId, name, isAway, turnEndsAt };
 
         const io = req.app.get('socketio');
-        io.sockets.in(result.mobId).emit('user-added', response);
+        io.sockets.in(mobId).emit('user-added', response);
 
         return res.send(response);
     } catch (error) {
@@ -88,31 +80,33 @@ module.exports.updateUser = async (req: Request, res: Response) => {
 
 module.exports.toggleTurnEndsAt = async (req: Request, res: Response) => {
     try {
-        // TODO - Pass turnEndsAt to prevent database call
         const user = await getRepository(User).findOne(req.params.id);
-
         const currentDate = new Date();
         const fifteenMinutes = new Date(currentDate.getTime() + 15 * 60000);
-        const turnEndsAt = user.turnEndsAt || req.query.isOutOfTime ? null : fifteenMinutes;
 
-        getRepository(User).merge(user, { turnEndsAt });
+        getRepository(User).merge(user, { turnEndsAt: user.turnEndsAt ? null : fifteenMinutes });
 
-        const result = await getRepository(User).save(user);
-        const response: UserResponse = {
-            id: result.id,
-            mobId: result.mobId,
-            name: result.name,
-            isAway: result.isAway,
-            turnEndsAt: result.turnEndsAt
-        };
+        const { id, mobId, name, isAway, turnEndsAt } = await getRepository(User).save(user);
+        const response: UserResponse = { id, mobId, name, isAway, turnEndsAt };
 
         const io = req.app.get('socketio');
-        io.sockets.in(result.mobId).emit('user-updated', response);
+        io.sockets.in(mobId).emit('user-updated', response);
 
         return res.send(response);
     } catch (error) {
         return res.status(500).send(error.message);
     }
+};
+
+module.exports.expireTurn = async (req: Request, res: Response) => {
+    const user = await getRepository(User).findOne(req.params.id);
+
+    getRepository(User).merge(user, { turnEndsAt: null });
+    const { id, mobId, name, isAway, turnEndsAt } = await getRepository(User).save(user);
+    const response: UserResponse = { id, mobId, name, isAway, turnEndsAt };
+
+    const io = req.app.get('socketio');
+    io.sockets.in(mobId).emit('user-timer-ended', response);
 };
 
 module.exports.deleteUser = async (req: Request, res: Response) => {

@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { MobService, DesktopNotificationService, UsersSocketService, UsersService } from '@dtm/core/services';
 import { Mob } from '@dtm/models';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { User } from '@dtm/shared/models/user.model';
 import { Subscription } from 'rxjs';
 
@@ -12,8 +11,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./mob.component.scss']
 })
 export class MobComponent implements OnInit, OnDestroy {
-  public userForm: FormGroup;
-  public mob: Mob;
+  public mob: Mob = {name: 'test'}; // temp
   public mobLink: string;
   public timeRemaining = '0:00';
   private subscriptions$: Array<Subscription> = [];
@@ -28,7 +26,6 @@ export class MobComponent implements OnInit, OnDestroy {
 
   public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.mobLink = document.location.href;
     this.usersSocketService.setupSocketConnection(id);
 
     this.mobService.getMob(id).subscribe((res: Mob) => {
@@ -39,10 +36,6 @@ export class MobComponent implements OnInit, OnDestroy {
         this.addSocketListeners();
       }
     });
-
-    this.userForm = new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(2)])
-    }, { updateOn: 'change' });
   }
 
   public ngOnDestroy(): void {
@@ -66,19 +59,20 @@ export class MobComponent implements OnInit, OnDestroy {
     );
 
     this.subscriptions$.push(
+      this.usersSocketService.on('user-timer-ended').subscribe((user: User) => {
+        const index = this.mob.users.findIndex(x => x.id === user.id);
+        this.mob.users[index] = user;
+        this.timeRemaining = '0:00';
+
+        this.desktopNotificationService.notify(`Your turn is over, ${user.name}! Click START for the next mobster.`);
+      })
+    );
+
+    this.subscriptions$.push(
       this.usersSocketService.on('user-deleted').subscribe((user: User) => {
         this.mob.users = this.mob.users.filter(x => x.id !== user.id);
       })
     );
-  }
-
-  public copyLink(): void {
-    const event = (e: ClipboardEvent) => {
-      e.clipboardData.setData('text/plain', this.mobLink);
-      e.preventDefault();
-    };
-    document.addEventListener('copy', event);
-    document.execCommand('copy');
   }
 
   public setTimeRemaining(): void {
@@ -106,32 +100,11 @@ export class MobComponent implements OnInit, OnDestroy {
     if (diff > 0) {
       setTimeout(() => this.setTimeRemaining(), 1000);
     } else {
-      this.desktopNotificationService.notify(`Your turn is over, ${user.name}! Click START for the next mobster.`);
-      this.toggleTurn(index, true);
+      this.expireTurn(index);
     }
   }
 
-  public addUser(): void {
-    const user: User = {
-      name: this.userForm.value.name,
-      mobId: this.mob.id
-    };
-    this.usersService.addUser(user).subscribe(() => {
-      this.userForm.reset();
-    });
-  }
-
-  public removeUser(index: number): void {
-    this.usersService.deleteUser(this.mob.users[index]).subscribe();
-  }
-
-  public toggleIsAway(index): void {
-    const user = this.mob.users[index];
-    user.isAway = !user.isAway;
-    this.usersService.updateUser(user).subscribe();
-  }
-
-  public toggleTurn(index: number, isOutOfTime: boolean = false): void {
-    this.usersService.toggleTurn(this.mob.users[index], isOutOfTime).subscribe();
+  private expireTurn(index: number): void {
+    this.usersService.expireTurn(this.mob.users[index]).subscribe();
   }
 }
