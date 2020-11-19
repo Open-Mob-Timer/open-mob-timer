@@ -5,7 +5,7 @@ Open Mob timer isn't just any mob timer. Nope! This one integrates socket.io to 
 
 Create a team, then copy the link to share with your team members. Everyone with the link can keep an eye on the timer without having to rely on Jerry G to remember to start the timer between drivers. Dang it, Jerry!
 
-![Demo](mobtimerdemo.gif)
+![Demo](mobtimerdemo2.gif)
 
 ## Development server
 TODO
