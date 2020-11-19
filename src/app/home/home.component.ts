@@ -13,6 +13,7 @@ import { DesktopNotificationService } from '@dtm/core/services';
 
 export class HomeComponent implements OnInit {
   public mobForm: FormGroup;
+  public isSubmitting: boolean;
 
   constructor(
     private router: Router,
@@ -28,9 +29,11 @@ export class HomeComponent implements OnInit {
   }
 
   public createNewMob(): void {
-    if (this.mobForm.invalid) {
+    if (this.mobForm.invalid || this.isSubmitting) {
       return;
     }
+
+    this.isSubmitting = true;
 
     this.mobService.createMob({ name: this.mobForm.value.name }).subscribe((res: Mob) => {
       if (res.id) {
@@ -38,6 +41,7 @@ export class HomeComponent implements OnInit {
       }
 
       this.mobForm.reset();
+      this.isSubmitting = false;
     });
   }
 }

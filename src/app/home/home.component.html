@@ -14,7 +14,7 @@
                      <button class="btn btn-primary"
                              type="button"
                              (click)="createNewMob()"
-                             [disabled]="mobForm.invalid">CREATE</button>
+                             [disabled]="mobForm.invalid || isSubmitting">CREATE</button>
               </div>
        </div>
 </form>

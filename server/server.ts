@@ -42,6 +42,7 @@ createConnection(connection).then(async connection => {
     server.listen(port, () => console.log(`app listening at http://localhost:${port}`));
 
     app.set('socketio', io);
+    app.set('trust proxy', true);
 
     io.on('connection', (socket) => {
         socket.on('join-room', (room) => {
