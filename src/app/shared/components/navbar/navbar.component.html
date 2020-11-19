@@ -4,20 +4,13 @@
             <a class="navbar-brand"
                href="#">{{mob?.name || 'Open Mob Timer' | uppercase}}</a>
         </div>
-        <div class="navbar-inner text-center">
+        <div class="nav navbar-right">
             <button id="mobLink"
                     class="btn btn-secondary"
                     [ngClass]="hasCopiedLink ? 'btn-success' : 'btn-secondary'"
                     (click)="copyLink()">{{mobLink}}&nbsp;
                 <i class="las"
                    [ngClass]="hasCopiedLink ? 'la-check' : 'la-clipboard'"></i></button>
-        </div>
-        <div class="nav navbar-right">
-            <li class="nav-item">
-            <a class="btn nav-btn"
-               href="https://github.com/Open-Mob-Timer/open-mob-timer"
-               target="_blank"><i class="lab la-github text-light"></i></a>
-        </li>
         </div>
     </div>
 </nav>
