@@ -23,6 +23,6 @@ module.exports.createMob = async (req: Request, res: Response) => {
 
         return res.send(result);
     } catch (error) {
-        res.status(500).send(error);
+        res.status(500).send('Error hit: ', error);
     }
 };

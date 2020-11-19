@@ -1,18 +1,20 @@
+<h1>Welcome to Open Mob Timer!</h1>
 <form class="form-inline my-2 my-lg-0 center"
       [formGroup]="mobForm"
       (ngSubmit)="createNewMob()">
-       <div class="input-group mb-3"
-            style="width:25%;">
-              <input class="form-control"
-                     type="text"
+       <div class="input-group mb-3">
+              <input type="text"
+                     class="form-control"
                      minlength="3"
                      formControlName="name"
-                     placeholder="Enter your mob's name">
+                     placeholder="Enter your mob's name"
+                     aria-label="Enter your mob's name"
+                     aria-describedby="basic-addon2">
               <div class="input-group-append">
                      <button class="btn btn-primary"
-                     type="button"
-                     (click)="createNewMob()"
-                     [disabled]="mobForm.invalid">CREATE</button>
+                             type="button"
+                             (click)="createNewMob()"
+                             [disabled]="mobForm.invalid">CREATE</button>
               </div>
        </div>
 </form>

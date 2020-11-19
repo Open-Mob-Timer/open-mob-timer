@@ -1,14 +1,17 @@
 # Open Mob Timer
-A Mob Timer for mobs with remote employees.
+Your free, open source Mob Timer for remote teams.
+
+Open Mob timer isn't just any mob timer. Nope! This one integrates socket.io to keep everyone in the loop while still keeping it simple. 
+
+Create a team, then copy the link to share with your team members. Everyone with the link can keep an eye on the timer without having to rely on Jerry G to remember to start the timer between drivers. Dang it, Jerry!
+
+![Demo](mobtimerdemo.gif)
 
 ## Development server
 TODO
 
 ## Build
 Use `npm run build` to build both the Angular and Express code
-
-## Deployment
-Deployment instructions are listed in the Deployment Guides repository
 
 ## Running unit tests
 Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
