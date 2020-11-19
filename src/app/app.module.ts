@@ -7,10 +7,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { MobModule } from './mob/mob.module';
 import { HomeModule } from './home/home.module';
 import { SharedModule } from './shared/shared.module';
+import { SponsorsComponent } from './sponsors/sponsors.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    SponsorsComponent,
   ],
   imports: [
     BrowserModule,
