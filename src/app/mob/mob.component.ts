@@ -52,9 +52,15 @@ export class MobComponent implements OnInit, OnDestroy {
     this.subscriptions$.push(
       this.usersSocketService.on('user-updated').subscribe((user: User) => {
         const index = this.mob.users.findIndex(x => x.id === user.id);
-        this.mob.users[index] = user;
+        const turnEndsAtModified = this.mob.users[index].turnEndsAt !== user.turnEndsAt;
 
+        this.mob.users[index] = user;
         this.setTimeRemaining();
+
+        if (turnEndsAtModified) {
+          const timerState = user.turnEndsAt ? 'started' : 'stopped';
+          this.desktopNotificationService.notify(`${user.name} timer ${timerState}`);
+        }
       })
     );
 
