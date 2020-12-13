@@ -52,9 +52,15 @@ export class MobComponent implements OnInit, OnDestroy {
     this.subscriptions$.push(
       this.usersSocketService.on('user-updated').subscribe((user: User) => {
         const index = this.mob.users.findIndex(x => x.id === user.id);
+        const turnEndsAtModified = this.mob.users[index].turnEndsAt !== user.turnEndsAt;
+  
         this.mob.users[index] = user;
-
         this.setTimeRemaining();
+  
+        if (turnEndsAtModified) {
+          const timerState = user.turnEndsAt ? 'started' : 'stopped';
+          this.desktopNotificationService.notify(`${user.name} timer ${timerState}`);
+        }
       })
     );
 
@@ -96,7 +102,6 @@ export class MobComponent implements OnInit, OnDestroy {
     }
 
     this.timeRemaining = `${minutes}:${secondsInMinute}`;
-
     if (diff > 0) {
       setTimeout(() => this.setTimeRemaining(), 1000);
     } else {
