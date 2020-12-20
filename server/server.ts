@@ -10,7 +10,7 @@ const port = process.env.PORT || 3000;
 
 const connection: ConnectionOptions = {
     type: 'mssql',
-    host: process.env.TYPEORM_HOST || 'localhost',
+    host: process.env.TYPEORM_HOST || 'localhost\\SQLEXPRESS',
     port: 1433,
     username: process.env.TYPEORM_USERNAME || 'sa',
     password: process.env.TYPEORM_PASSWORD || 'root',
