@@ -24,6 +24,7 @@ Create a team, then copy the link to share with your team members. Everyone with
 - Complete [First Time Setup](#first-time-setup)
 - `npm run start:client`
 - `npm run start:server`
+- Open a browser window and go to http://localhost:4200
 
 ## [First Time Setup](#first-time-setup)
 ### Install Node Modules
