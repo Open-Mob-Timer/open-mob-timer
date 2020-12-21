@@ -9,7 +9,7 @@
     "build:prod": "npm run build:client:prod && npm run build:server",
     "build:client:prod": "ng build --prod",
     "build:server": "webpack --config ./server/webpack.config.js",
-    "typeorm": "ts-node --project ./server/tsconfig.json ./node_modules/typeorm/cli.js",
+    "typeorm": "ts-node --project ./server/tsconfig.json ./node_modules/typeorm/cli.js --config ./server/ormconfig.ts",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
