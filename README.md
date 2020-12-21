@@ -29,7 +29,6 @@ Create a team, then copy the link to share with your team members. Everyone with
 ## [First Time Setup](#first-time-setup)
 ### Install Node Modules
 - `npm install`
-There's some configuration to do before the app can be run locally.
 ### SQL Server Express and Database Initialization
 The following steps should only need to be performed for first time setup.
 #### Enable SQL Server Browsing
@@ -65,8 +64,7 @@ GO
 ```
 
 #### Setup the Database
-1. Choose a password you want to use for the mobtimer database user
-1. Set the value of the password on the `TYPEORM_PASSWORD` environment variable
+1. Create an environment variable named `TYPEORM_PASSWORD` and set it to the value of the password you want to use for the mobtimer database user
 1. Set the value of the password on the `@password` variable in the SQL below
 1. Excute the SQL
 
@@ -106,4 +104,4 @@ GO
 ```
 
 #### Run the Migrations
-`cd` into the project folder and run `npm run typeorm -- migrations:run`
+- `cd` into the project folder and run `npm run typeorm -- migrations:run`
