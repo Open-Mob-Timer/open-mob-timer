@@ -65,7 +65,8 @@ GO
 
 #### Setup the Database
 1. Create an environment variable named `TYPEORM_PASSWORD` and set it to the value of the password you want to use for the mobtimer database user
-1. Set the value of the password on the `@password` variable in the SQL below
+1. Copy the SQL below and paste it into a SQL Server database tool like SSMS or Azure Data Studio
+1. Edit the line `SET @password = ` to assign a value to `@password`. For example: `SET @password = 'password'`, but more secure :)
 1. Excute the SQL
 
 ```sql
