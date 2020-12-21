@@ -1,24 +1,12 @@
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
+import * as ormConfig from './ormconfig';
 import { createConnection, ConnectionOptions } from 'typeorm';
-import { User } from './entity/user';
-import { Mob } from './entity/mob';
 import * as routes from './routes';
 
-const port = process.env.PORT || 3000;
-
-const connection: ConnectionOptions = {
-    type: 'mssql',
-    host: process.env.TYPEORM_HOST || 'localhost',
-    port: 1433,
-    username: process.env.TYPEORM_USERNAME || 'sa',
-    password: process.env.TYPEORM_PASSWORD || 'root',
-    database: process.env.TYPEORM_DATABASE || 'mobtimer',
-    entities: [Mob, User]
-};
-
-createConnection(connection).then(async connection => {
+createConnection(ormConfig).then(async connection => {
+    const port = process.env.PORT || 3000;
     const app = express();
     const server = require('http').createServer(app);
     const options = {
