@@ -18,8 +18,8 @@ Create a team, then copy the link to share with your team members. Everyone with
 Everyone with the team url in the browser has control, encouraging self-organizing teams.
 
 #### Desktop Notifications
-Desktop notifications let everyone know when a timer is started or stopped, and whenever someone's turn is over.
-![image](https://user-images.githubusercontent.com/13296622/146055287-44f9959c-e684-4856-a2b0-9087785a1e8e.png)
+Desktop notifications let everyone know when a timer is started or stopped, and whenever someone's turn is over.  
+><img src="desktop-notification.png" alt="Desktop Notifications" width="350">
 
 #### No login required
 Just create a mob and add users. Keep track of your unique url for mobbing all week, month, year, and so on.
